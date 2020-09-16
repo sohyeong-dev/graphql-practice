@@ -1,16 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga'
-
-const typeDefs = `
-  type Query {
-    hello(name: String): String!
-  }
-`
-
-const resolvers = {
-  Query: {
-    hello: (_, { name }) => `Hello ${name || 'World'}`,
-  },
-}
+import resolvers from './src/resolvers'
 
 const options = {
   port: 3000,
@@ -19,5 +8,8 @@ const options = {
   playground: '/playground',
 }
 
-const server = new GraphQLServer({ typeDefs, resolvers })
+const server = new GraphQLServer({
+  typeDefs: "./src/schema.graphql",
+  resolvers,
+})
 server.start(options, ({ port }) => console.log(`Server is running on learn-express.run.goorm.io:${port}`))

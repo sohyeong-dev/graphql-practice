@@ -1,0 +1,20 @@
+type Query {
+  users: [User!]!
+  # Fetch a single user by its `id`
+  user(id: ID!): User
+}
+
+type Mutation {
+  createUser(name: String!): User!
+  
+  # Update a user
+  updateUser(id: ID!, name: String): User
+  
+  # Delete a user
+  deleteUser(id: ID!): User
+}
+
+type User {
+  id: ID!
+  name: String!
+}
