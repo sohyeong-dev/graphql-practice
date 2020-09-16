@@ -4,33 +4,33 @@ import { users, getUserById } from './user'
 let idCount = users.length
 const resolvers = {
   Query: {
-    user: (parent, args) => getUserById(args.id),
+    user: (_, { id }) => getUserById(id),
     users: () => users,
   },
   Mutation: {
     // 2
-    createUser: (parent, args) => {
+    createUser: (_, { name }) => {
        const user = {
         id: `user-${idCount++}`,
-        name: args.name,
+        name: name,
       }
       users.push(user)
       return user
     },
 	  
-	updateUser: (parent, args) => {
-		const user = { id: args.id, name: args.name }
+	updateUser: (_, { id, name }) => {
+		const user = { id: id, name: name }
 		for (var i = 0; i < users.length; i++) {
-			if (users[i].id === args.id) {
+			if (users[i].id === id) {
 				users.splice(i, 1, user)
 				return user
 			}
 		}
 	},
 	  
-	deleteUser: (parent, args) => {
+	deleteUser: (_, { id }) => {
 		for (var i = 0; i < users.length; i++) {
-			if (users[i].id === args.id) {
+			if (users[i].id === id) {
 				const user = users[i]
 				users.splice(i, 1)
 				return user
