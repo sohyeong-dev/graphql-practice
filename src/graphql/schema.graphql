@@ -5,6 +5,10 @@ type Query {
   login(name: String!, pwd: String!): User
 }
 
+type Mutation {
+  signup(name: String!, pwd: String!): User
+}
+
 type User {
   id: ID!
   name: String!

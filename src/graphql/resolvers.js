@@ -1,4 +1,4 @@
-import { getUsers, getUserById, selectUser } from '../db/user'
+import { getUsers, getUserById, insertUser, selectUser } from '../db/user'
 
 // 1
 const resolvers = {
@@ -6,6 +6,9 @@ const resolvers = {
     user: (_, { id }) => getUserById(id),
     users: () => getUsers(),
 	login: (_, { name, pwd }) => selectUser(name, pwd),
+  },
+  Mutation: {
+	signup: (_, { name, pwd }) => insertUser(name, pwd),
   }
 }
 
