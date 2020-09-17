@@ -17,6 +17,7 @@ GraphQL 연습
 - sequelize-cli
 - dotenv
 - bcryptjs
+- jsonwebtoken
 
 ## GraphQL Usage
 
