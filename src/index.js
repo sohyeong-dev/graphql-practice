@@ -1,5 +1,8 @@
 import { GraphQLServer } from 'graphql-yoga'
-import resolvers from './src/resolvers'
+import { sequelize } from '../models'
+import resolvers from './graphql/resolvers'
+
+sequelize.sync();
 
 const options = {
   port: 3000,
@@ -9,7 +12,7 @@ const options = {
 }
 
 const server = new GraphQLServer({
-  typeDefs: "./src/schema.graphql",
+  typeDefs: "./src/graphql/schema.graphql",
   resolvers,
 })
 server.start(options, ({ port }) => console.log(`Server is running on learn-express.run.goorm.io:${port}`))
