@@ -1,5 +1,8 @@
+require('dotenv').config();
+
 import { User } from '../../models'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const saltRounds = 10
 
@@ -12,6 +15,17 @@ export const getUserById = async id => {
 	return user
 }
 
+export const findOneByName = async name => {
+	const user = await User.findOne({
+		name
+	})
+	return user
+}
+
+export const verify = async pwd => {
+	return await bcrypt.compareSync(pwd, user.pwd)
+}
+
 export const selectUser = async (name, pwd) => {
 	const user = await User.findOne({
 		where: {
@@ -20,7 +34,10 @@ export const selectUser = async (name, pwd) => {
 	})
 	if (user) {
 		if (await bcrypt.compareSync(pwd, user.pwd)) {
-			return user
+			const token = jwt.sign({ id: user.id, name: user.name }, process.env.JWT_SECRET, {
+				algorithm: 'HS256',
+			})
+			return token
 		}
 		throw new Error('Incorrect password.')
 	}
