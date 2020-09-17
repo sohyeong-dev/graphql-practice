@@ -2,6 +2,7 @@ type Query {
   users: [User!]!
   # Fetch a single user by its `id`
   user(id: ID!): User
+  login(name: String!, pwd: String!): User
 }
 
 type User {
