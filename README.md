@@ -12,3 +12,13 @@ GraphQL 연습
 - babel
 - nodemon
 - graphql-yoga
+- mysql2
+- sequelize
+- sequelize-cli
+- dotenv
+- bcryptjs
+
+## GraphQL Usage
+
+1. typeDefs: 스키마 정의 => schema.graphql
+2. resolvers: 스키마 구현 => resolvers.js
