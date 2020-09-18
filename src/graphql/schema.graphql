@@ -3,6 +3,7 @@ type Query {
   # Fetch a single user by its `id`
   user(id: ID!): User
   login(name: String!, pwd: String!): String
+  isLogin(authorization: String!): String
 }
 
 type Mutation {

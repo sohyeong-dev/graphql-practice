@@ -26,6 +26,18 @@ export const verify = async pwd => {
 	return await bcrypt.compareSync(pwd, user.pwd)
 }
 
+export const autheticate = (authorization) => {
+	try {
+		const token = jwt.verify(authorization, process.env.JWT_SECRET)
+		if (token) {
+			return token.name
+		}
+		throw new Error('unauthorized.')
+	} catch (err) {
+		throw new Error('token expired')
+	}
+}
+
 export const selectUser = async (name, pwd) => {
 	const user = await User.findOne({
 		where: {
@@ -36,6 +48,7 @@ export const selectUser = async (name, pwd) => {
 		if (await bcrypt.compareSync(pwd, user.pwd)) {
 			const token = jwt.sign({ id: user.id, name: user.name }, process.env.JWT_SECRET, {
 				algorithm: 'HS256',
+				expiresIn: '1h',
 			})
 			return token
 		}
